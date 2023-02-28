@@ -1,0 +1,94 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/ALU.hdl
+
+/**
+ * The ALU (Arithmetic Logic Unit).
+ * Computes one of the following functions:
+ * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,
+ * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs, 
+ * according to 6 input bits denoted zx,nx,zy,ny,f,no.
+ * In addition, the ALU computes two 1-bit outputs:
+ * if the ALU output == 0, zr is set to 1; otherwise zr is set to 0;
+ * if the ALU output < 0, ng is set to 1; otherwise ng is set to 0.
+ */
+
+// Implementation: the ALU logic manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) set x = 0        // 16-bit constant
+// if (nx == 1) set x = !x       // bitwise not
+// if (zy == 1) set y = 0        // 16-bit constant
+// if (ny == 1) set y = !y       // bitwise not
+// if (f == 1)  set out = x + y  // integer 2's complement addition
+// if (f == 0)  set out = x & y  // bitwise and
+// if (no == 1) set out = !out   // bitwise not
+// if (out == 0) set zr = 1
+// if (out < 0) set ng = 1
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // 입력 x를 0으로
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute out = x + y (if 1) or x & y (if 0)
+        no; // negate the out output?
+
+    OUT 
+        out[16], // 16-bit output
+        zr, // 1 if (out == 0), 0 otherwise
+        ng; // 1 if (out < 0),  0 otherwise
+
+    PARTS:
+    //nx zx 
+    NnotNzero(a=x,sel=zx,sel2 = nx, out= X);
+    //ny zy 
+    NnotNzero(a=y,sel=zy,sel2 = ny, out= Y);
+
+    //x+y
+    Add16(a=X, b=Y, out=plus);
+    //X&Y
+    And16(a=X, b=Y, out=and);
+
+    Mux16(a=and, b=plus, sel=f, out=ans);
+
+    //!ans
+    Not16(in=ans, out=notans);
+
+    //out or !out
+    // Mux16(a=ans, b=notans, sel=no, out=out, out[0..15]= o );
+    Mux16(a=ans, b=notans, sel=no, out=out, out[15]=ng, out[0..7]=finalLeft, out[8..15]=finalRight);
+    
+    //equal
+        Or8Way(in=finalLeft, out=zrl);
+        Or8Way(in=finalRight, out=zrr);
+        Or(a=zrl, b=zrr, out=nzr);
+        Not(in=nzr, out=zr);
+
+    // Or(a=o[0], b=o[1], out=z1);
+    // Or(a=o[2], b=o[3], out=z2);
+    // Or(a=o[4], b=o[5], out=z3);
+    // Or(a=o[6], b=o[7], out=z4);
+    // Or(a=o[8], b=o[9], out=z5);
+    // Or(a=o[10], b=o[11], out=z6);
+    // Or(a=o[12], b=o[13], out=z7);
+    // Or(a=o[14], b=o[15], out=z8);
+
+    // Or(a=z1, b=z2, out=z10);
+    // Or(a=z3, b=z4, out=z11);
+    // Or(a=z5, b=z6, out=z12);
+    // Or(a=z7, b=z8, out=z13);
+
+    // Or(a=z10, b=z11, out=z14);
+    // Or(a=z12, b=z13, out=z15);
+
+    // Or(a=z14, b=z15, out=z);
+
+    // Xor(a=z, b=true, out=zr);
+    
+    //neq
+    // And16(a=o[15], b=true, out=ng);
+
+}
