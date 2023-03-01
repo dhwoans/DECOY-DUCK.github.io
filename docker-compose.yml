@@ -3,7 +3,7 @@ version: '3'
 services:
   jekyll:
     image: jekyll/jekyll:latest
-    command: jekyll serve --watch --force_polling --verbose
+    command: jekyll serve --verbose
     ports:
       - 4000:4000
     volumes:

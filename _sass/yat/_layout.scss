@@ -219,6 +219,7 @@ html {
  * Post header
  */
 %post-header {
+
   .post-header {
     margin-bottom: $spacing-unit;
   }
@@ -251,6 +252,11 @@ html {
   -ms-flex: none; /* <-- Fix IE footer issue */
   padding: $spacing-unit * 2 0;
   padding-top: 72px;
+}
+.post-img {
+    width:100rem ;
+    height:30rem ;
+    border-radius: 10px;
 }
 
 .page-heading {
@@ -315,6 +321,22 @@ html {
     @include relative-font-size(1.65);
     font-weight: $base-font-weight * 1.5;
     color: #333;
+
+    &:hover{
+      color: #666;
+    }
+    &:hover .post-img{
+      transform: translate(0px, -20px);
+      box-shadow: 5px 5px 5px rgba(48, 48, 48, 0.363);
+      transition: 0.2s ease-out;
+    }
+    &:not(:hover) .post-img{
+      transition: 0.2s ease-out;
+    }
+    &::not(:hover) {
+    transition: 0.2s ease-out;
+    }
+    
   }
 
   .post-excerpt {

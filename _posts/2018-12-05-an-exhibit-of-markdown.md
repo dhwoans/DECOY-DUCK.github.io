@@ -3,6 +3,8 @@ layout: post
 title: An exhibit of Markdown
 subtitle: Each post also has a subtitle
 categories: markdown
+banner: 
+  image: https://i.pinimg.com/564x/c7/8f/65/c78f6507972d3c21e290ea660a812433.jpg
 tags: [example, markdown]
 ---
 
