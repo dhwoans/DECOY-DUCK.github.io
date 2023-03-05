@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (블로그) 로컬 환경 설정
-subtitle: Jekyll을 실행할 수있는 환경을 만듭니다.
+title: (블로그) githubpage로 블로그 제작
+subtitle: 단 하루 만에 블로그를 제작합니다.
 banner:
   image: https://i.pinimg.com/564x/27/f2/3b/27f23b058bdde17abf2b190eb7e14e9f.jpg
   opacity: 0.618
@@ -9,7 +9,7 @@ banner:
   heading_style: "font-size: 4.25em; font-weight: bold; "
 author: 오재문
 categories: web
-tags: [blog,docker]
+tags: [blog,docker,Jekyll,github page]
 comments: true
 
 ---
@@ -18,11 +18,7 @@ comments: true
 
 ![Untitled](https://user-images.githubusercontent.com/51963264/221788404-6f5b5f9a-9915-4d76-9aac-5b6332819c92.png)
 
-웹페이지 구축이 완료된 후 블로그를 관리하면서 로컬환경에서 먼저 수정사항을 확인한 후 깃 페이지에 적용하는 것이 관리 측면에서 유리할 것으로 판단되기 때문입니다.  
-
- 
-
-그럼 `jekyll`을 설치해 보겠습니다. 설치과정은 [공식 문서](https://jekyllrb-ko.github.io/docs/installation/)를 참고했습니다. 빠른 설치 방법도 존재하지만 `MacOS`의 경우 아래의 오류가 출력될 수 있으니 링크의 설치가이드를 따라 설치하는 것을 추천드립니다.
+웹페이지 구축이 완료된 후 블로그를 관리하면서 로컬 환경에서 먼저 수정사항을 확인한 후 깃 페이지에 적용하는 것이 관리 측면에서 유리할 것으로 판단되기 때문에  `jekyll`을 설치해 보겠습니다. 설치과정은 [공식 문서](https://jekyllrb-ko.github.io/docs/installation/)를 참고했습니다. 빠른 설치 방법도 존재하지만 `MacOS`의 경우 아래의 오류가 출력될 수 있으니 링크의 설치가이드를 따라 설치하는 것을 추천드립니다.
 
 ```bash
 gem install bundler jekyll                         
@@ -89,9 +85,7 @@ $ gem install -n /usr/local/bin jekyll
 
 ## 웹 페이지 구성
 
-이제까지 블로그를 운영하기 위한 기반을 다졌다면 이제 실제 블로그 페이지를 만들어 볼 차례 입니다. 정확히 말하면 템플릿을 활용해 웹페이지를 만드는 것입니다. 
-
-직접 만들어도 좋지만 시간과 여건을 고려하면 이미 만들어진 페이지를 잘 활용하는 것이 더 효과적일 수 있습니다. 
+이제까지 블로그를 운영하기 위한 기반을 다졌다면 이제 실제 블로그 페이지를 만들어 볼 차례 입니다. 정확히 말하면 템플릿을 활용해 웹페이지를 만드는 것입니다. 직접 만들어도 좋지만 시간과 노력은 한정적이기 때문에 이미 잘 만들어진 웹 페이지를 잘 활용하는 것이 더 효과적일 수 있습니다. 
 
 `jekyll` 테마를 적용할 수 있는 방법은 다양합니다.  저는 로컬환경에 소스코드를 다운받는 방법으로 진행하겠습니다.  테마는  [이곳](https://jekyll-themes.com/free/)을 통해 구할수 있습니다. 그 외 `jekyll theme`로 검색하면 다양한 테마를 무료로 사용할 수 있습니다. 
 
@@ -119,7 +113,7 @@ bundle exec jekyll serve
 ![Untitled](https://user-images.githubusercontent.com/51963264/221825227-14868773-fcc8-4f84-ba93-263b7da2b287.png)
 
 
-로컬 환경을 마쳤다면 이제 배포서버를 만들 차례입니다. 깃페이지의 경우 jekyll이 설치되어 있기때문에 별도의 설치가 없습니다. 그럼 이제 원격 서버를 만들고 로컬의 웹페이지를 원격서버에 띄워보겠습니다. 이번 작업을 원활히 진행하기 위해서는 git 명령어 및 github에 대한 전반적인 지식이 요구됩니다.
+로컬 환경을 마쳤다면 이제 배포서버를 만들 차례입니다. 깃페이지의 경우 jekyll이 설치되어 있기때문에 별도의 설치작업이 필요하지 않습니다. 그럼 이제 원격 서버를 만들고 로컬의 웹페이지를 원격서버에 띄워보겠습니다. 이번 작업을 원활히 진행하기 위해서는 git 명령어 및 github에 대한 전반적인 지식이 요구됩니다.
 
 
 작업 순서는 [이곳](https://docs.github.com/ko/pages/getting-started-with-github-pages/creating-a-github-pages-site)을 참고하여 진행하였습니다.
