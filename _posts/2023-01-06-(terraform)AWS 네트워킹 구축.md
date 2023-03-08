@@ -40,7 +40,7 @@ main.tf 파일을 만들어 리소스를 하나씩 써내려가도 무방하지�
 └── vpc.tf
 ```
 
-### VPC 생성
+## VPC 생성
 
 ```bash
 # vpc.tf
@@ -65,7 +65,7 @@ plan은 실제로 리소스를 작성하기 전 리소스가 어떻게 생성되
 remote로 상태 관리하는 것은 다음에 다뤄보겠습니다.
 
 
-### **서브넷 생성**
+## **서브넷 생성**
 
 서브넷은 인터넷 접근이 불가능한 private과 접근가능한 public 두가지가 있습니다.
 
@@ -89,7 +89,7 @@ resource "aws_subnet" "publicSubnet" {
 }
 ```
 
-### 인터넷게이트웨이 연결
+## 인터넷게이트웨이 연결
 
 인터넷 게이트웨이는 VPC가 인터넷과 통신할 수 있도록 해줍니다. 루트 테이블에 연결됩니다. 앞서 말했듯 private subnet은 인터넷과 연결되어 있지 않기 때문에 public만 연결합니다.
 
@@ -102,7 +102,7 @@ resource "aws_internet_gateway" "IGW" {
 }
 ```
 
-### **NAT Gateway(NGW)**
+## NAT Gateway(NGW)
 
 `ngw`는 `vpc` 내부의 `prviate subnet`의 인스턴스들과 인터넷/AWS 서비스에 연결하는 게이트 웨이입니다.
 
@@ -129,7 +129,7 @@ resource "aws_nat_gateway" "ngw" {
 
 인터넷과 연결하기 위해서는 public subnet에 위치해야한다는 점을 유의해야합니다.
 
-### Route Table
+## Route Table
 
 루트 테이블은 트랙픽이 어디로 가야 할지 알려주는 테이블 입니다.
 
@@ -172,7 +172,7 @@ resource "aws_route_table_association" "privateRTAssociation" {
 
  
 
-### Endpoint
+## Endpoint
 
 nat gateway를 통해서 외부의 s3와 연결이 가능하지만 보안상의 위험에 노출될 수 있습니다. 때문에 endpoint를 이용해 내부 트랙픽이 외부로 드러나지 않게 할 수 있습니다.
 
@@ -188,5 +188,7 @@ resource "aws_vpc_endpoint_route_table_association" "s3_routetable" {
   route_table_id = aws_route_table.privateRoute.id
 } 
 ```
+---
+## 맺음 말
 
-이 코드는 완벽하게 동작하지만 재사용하기에는 무리가 있습니다. 다음에는 모듈을 이용해서 재사용가능한 코드로 바꿔보겠습니다.
+이 코드는 완벽하게 동작합니다. 하지만 재사용하기에는 무리가 있습니다. 막 만들어진 코드를 서비스 환경에 바로 적용할수는 없습니다. 검증을 위해 서비스 환경과 유사한 환경(스테이징)이 필요합니다. 그래서 일반적으로 둘 이상의 환경이 필요합니다. 위의 방식대로라면 거의 유사한 코드를 두번 써야합나다. 그건 전혀 개발자스럽지 않습니다. 그 문제에 대해서는 다음에 다뤄 보도록 하겠습니다.

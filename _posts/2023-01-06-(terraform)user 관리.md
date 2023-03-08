@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (terraform) user 관리
-subtitle: 코드로 인프라를 관리해 봅시다
+title: (terraform) IAM user 관리
+subtitle: 루트계정말고 
 banner:
   image: https://geekylane.com/wp-content/uploads/2019/05/How-to-set-up-IAM-on-AWS-account-Complete-Step-by-Step-Guide.png
   opacity: 0.618
@@ -68,7 +68,7 @@ resource "aws_iam_group" "iam_group" {
 
 마찬가지로  group 또한 name만 필수 값으로 가집니다. 하지만 유의미한 group을 생성하기 위해서는 그룹에 정책을 등록해야 합니다.
 
-앞서 말했다시피 AWS에서는 루트 계정 대신 Administrator Access을 부여한 IAM 사용자를 따로 만들어서 사용하는 것을 권장하므로 damin 그룹을 만들어 보겠습니다.
+앞서 말했다시피 AWS에서는 루트 계정 대신 Administrator Access을 부여한 IAM 사용자를 따로 만들어서 사용하는 것을 권장하므로 admin 그룹을 만들어 보겠습니다.
 
 **IAM group 에 정책 등록**
 
@@ -76,11 +76,11 @@ resource "aws_iam_group" "iam_group" {
 resource "aws_iam_group_policy" "admin" {
   name   = "iam_access_policy_for_admin"
   group  = aws_iam_group.iam_group.id
-  policy = data.aws_iam_policy_document.devs.json
+  policy = data.aws_iam_policy_document.admin.json
 }
 ```
 
-`policy`에 정책을 바로 적어도 좋지만 `data`로 따로 빼서 적어 보도록 하겠습니다.
+`policy`에 정책을 바로 적어도 좋지만 가독성을 위해`data`로 따로 빼서 적어 보도록 하겠습니다.
 
 ```
 data "aws_iam_policy_document" "admin" {
@@ -109,15 +109,11 @@ resource "aws_iam_group_membership" "iam_group" {
 
 ### 비밀번호 설정
 
-IAM user를 통해 aws 콘솔에 로그인하기 위한 Password를 설정하는 방법에 대해 알아보도록 하겠습니다. 우선 비밀번호를 스크립트 상에 남기지 않아야 합니다. 하지만 terraform을 정상적으로 실행시키기 위해서는 비밀번호를 작성할 수 밖에 없습니다.이런 역설적인 상황을 해결하기 위해서는 암호화된 암호를 만들 수 밖에 없습니다.
+IAM user를 통해 aws 콘솔에 로그인하기 위한 Password를 설정하는 방법에 대해 알아보도록 하겠습니다. 우선 비밀번호를 스크립트 상에 남기지 않아야 합니다. 하지만 terraform을 정상적으로 실행시키기 위해서는 비밀번호를 작성해야 합니다.이런 역설적인 상황을 해결하기 위해서는 비밀번호를 암호화할 수 밖에 없습니다.
 
-우선 `aws_iam_user_login_profile` 리소스를 살펴 보겠습니다.
+[`aws_iam_user_login_profile`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_login_profile#argument-reference) 리소스를 살펴보면 pgp_key argument를 통해 암호화 된 암호를 생성하여 노출을 최소화할 수 있습니다.
 
-
-
-[pgp_key rgument](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_login_profile#argument-reference)를 통해 암호화 된 암호를 생성하여 암호노출을 최소화할 수 있습니다.
-
-전체적인 흐름은 다음과 같습니다
+그래서 전체적인 흐름은 다음과 같습니다
 
 1. Keybase를 설치합니다.
 2. Keybase를 이용해 key를 생성합니다.

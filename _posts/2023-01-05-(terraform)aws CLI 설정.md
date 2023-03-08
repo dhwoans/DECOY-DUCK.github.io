@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (terraform) aws cli 
-subtitle: 코드로 인프라를 관리해 봅시다
+subtitle: 웹 콘솔에서 벗어나기
 banner:
   image: https://i.pinimg.com/564x/1e/a4/6c/1ea46cb639c6c2594f29c27bde15de42.jpg
   opacity: 0.618
