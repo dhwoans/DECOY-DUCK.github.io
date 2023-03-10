@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (terraform) IAM user 관리
-subtitle: 루트계정말고 
+subtitle: 테라폼으로 유저를 관리합니다.
 banner:
   image: https://geekylane.com/wp-content/uploads/2019/05/How-to-set-up-IAM-on-AWS-account-Complete-Step-by-Step-Guide.png
   opacity: 0.618

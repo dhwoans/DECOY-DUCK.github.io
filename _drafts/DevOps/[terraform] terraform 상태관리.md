@@ -1,14 +1,28 @@
-# [terraform] terraform 상태관리
+---
+layout: post
+title: (terraform) terraform 상태관리
+subtitle: 닭이 먼저인가 달걀이 먼저인가
+banner:
+  image: https://i.pinimg.com/736x/c9/cb/70/c9cb70d00a543a9e7b752602b00df888.jpg
+  opacity: 0.618
+  background: "#000"
+  heading_style: "font-size: 4.25em; font-weight: bold; "
+author: 오재문
+categories: [DevOps]
+tags: [terraform,IaC]
+comments: true
 
-이때까지 우리는 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경 에서의 상태 관리는 팀 단위일 때 문제가 될 수있습니다. 
+---
+
+이때까지 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경 에서의 상태 관리는 팀 단위일 때 문제가 될 수 있습니다. 
 
 테라폼 상태관리에 있어서 여러 사용자가 동시에 접근하지 못하는 `잠금` 기능은  필수적 입니다. 때문에 다른 개발 언어와 같이 깃을 이용해 테라폼 상태 파일을 저장하는 것은 부적절 합니다.
 
 대신 테라폼에는 `백엔드` 기능이 있습니다. 테라폼 백엔드는 테라폼이 상태를 로드하고 저장하는 방법을 결정합니다. 기본 백엔드는 로컬 백엔드로써 로컬 디스크에 상태 파일을 저장합니다. 원격 백엔드를 사용하면 상태 파일을 원격 공유 저장소에 저장할 수 있습니다.
 
-아마존 S3,애저 스토리지, 구글 클라우드 스토리지등 다양한 원격 백엔드가 지원됩니다. 그 중 terraform cloud를 이용해 원격상태 관리를 해보겠습니다.
+아마존 S3,애저 스토리지, 구글 클라우드 스토리지등 다양한 원격 백엔드가 지원됩니다. 그 중 terraform cloud와 S3를 이용해 원격상태 관리를 해보겠습니다.
 
-### terraform cloud
+## terraform cloud
 
 먼저 회원가입이 필요합니다. [이곳](https://www.notion.so/terraform-terraform-1bb5d479d2224271894a262818691df4)에서 회원 가입을 한 후 token을 만들어 줍니다. 그런 다음 local환경에 token을 저장해야 합니다. ~/.terraformrc을 열어 다음과 같이 작성합니다.
 

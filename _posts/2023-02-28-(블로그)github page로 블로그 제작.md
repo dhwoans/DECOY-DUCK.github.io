@@ -245,6 +245,6 @@ docker compose up
 ![Untitled](https://user-images.githubusercontent.com/51963264/221789433-8e2b6ffa-24fc-4c09-b0d5-b06950c9e0ae.png)
 
 ---
-## 맺음말
+## 마치며
 
 짧은 시간에 웹사이트를 제작해 보았습니다. Jekyll을 이용해 웹페이지를 구성하였지만 Jekyll말고도 다양한 정적 웹페이지 생성기(SSG)가 있습니다. 블로그 관리에 익숙해진다면  저에게 있어 생소한 언어인 ruby보다 go나 JavaScript로 만들어진 SSG로 마이그레이션해보는 것도 좋은 경험이 될것 같습니다.
