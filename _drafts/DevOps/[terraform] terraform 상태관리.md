@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (terraform) terraform 상태관리
-subtitle: 닭이 먼저인가 달걀이 먼저인가
+title: (terraform) terraform 상태 관리
+subtitle: 
 banner:
   image: https://i.pinimg.com/736x/c9/cb/70/c9cb70d00a543a9e7b752602b00df888.jpg
   opacity: 0.618
@@ -14,7 +14,7 @@ comments: true
 
 ---
 
-이때까지 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경 에서의 상태 관리는 팀 단위일 때 문제가 될 수 있습니다. 
+이때까지 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경에서의 상태 관리는 팀 단위일 때 문제가 될 수 있습니다. 
 
 테라폼 상태관리에 있어서 여러 사용자가 동시에 접근하지 못하는 `잠금` 기능은  필수적 입니다. 때문에 다른 개발 언어와 같이 깃을 이용해 테라폼 상태 파일을 저장하는 것은 부적절 합니다.
 
