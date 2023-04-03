@@ -9,18 +9,16 @@ banner:
   heading_style: "font-size: 4.25em; font-weight: bold; "
 author: 오재문
 categories: [DevOps]
-tags: [terraform,IaC]
+tags: [terraform,IaC,terraformcloud]
 comments: true
 
 ---
 
-이때까지 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경에서의 상태 관리는 팀 단위일 때 문제가 될 수 있습니다. 
-
-테라폼 상태관리에 있어서 여러 사용자가 동시에 접근하지 못하는 `잠금` 기능은  필수적 입니다. 때문에 다른 개발 언어와 같이 깃을 이용해 테라폼 상태 파일을 저장하는 것은 부적절 합니다.
+이때까지 terraform의 상태를 local의  **terraform.tfstate파일을 통해** 관리 해왔습니다. local환경에서의 상태 관리는 팀 단위일 때 문제가 될 수 있습니다. 테라폼 상태관리에 있어서 여러 사용자가 동시에 접근하지 못하는 `잠금` 기능은 필수적 입니다. 때문에 다른 개발 언어와 같이 깃만으로 테라폼 상태 파일을 저장하는 것은 부적절 합니다.
 
 대신 테라폼에는 `백엔드` 기능이 있습니다. 테라폼 백엔드는 테라폼이 상태를 로드하고 저장하는 방법을 결정합니다. 기본 백엔드는 로컬 백엔드로써 로컬 디스크에 상태 파일을 저장합니다. 원격 백엔드를 사용하면 상태 파일을 원격 공유 저장소에 저장할 수 있습니다.
 
-아마존 S3,애저 스토리지, 구글 클라우드 스토리지등 다양한 원격 백엔드가 지원됩니다. 그 중 terraform cloud와 S3를 이용해 원격상태 관리를 해보겠습니다.
+아마존 S3,애저 스토리지, 구글 클라우드 스토리지등 다양한 원격 백엔드가 지원됩니다. 그 중 terraform cloud를 이용해 원격상태 관리를 해보겠습니다.
 
 ## terraform cloud
 
@@ -73,3 +71,7 @@ Operation failed: failed running terraform plan (exit 1)
 만약 정상적으로 실행되지 않고 위와 같은 오류가 있다면 아래 글을 참고하면 해결할 수 있습니다.
 
 [Terraform error configuring AWS provider backend issue](https://stackoverflow.com/questions/71906029/terraform-error-configuring-aws-provider-backend-issue)
+
+## Organization
+
+Organization 은 팀과 함께 공유되어 사용되는 공간으로 Terraform 을 수행하기 위한 Workspace를 관리한다.
